@@ -3,8 +3,8 @@ import Dexie, { Table } from 'dexie';
 export interface Event {
     id?: number;
     title: string;
-    start: string;
-    end: string;
+    start: Date;
+    end: Date;
 }
 
 export class MySubClassedDexie extends Dexie {
