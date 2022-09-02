@@ -1,7 +1,3 @@
 export const commonStyle = {
-    tableTimeColumnHeight: 33,
+    tableTimeColumnHeight: 48,
 } as const
-
-// export const minutes = {
-//     oneCoreterOfAnHour:
-// }

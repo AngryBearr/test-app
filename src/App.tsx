@@ -1,20 +1,22 @@
-import moment from 'moment';
 import React, { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
-import { myDexieDB } from './db/db';
+import moment from 'moment';
 
+import { Box } from '@mui/material';
+
+import { myDexieDB } from './db/db';
+import { DateFormat } from './utils/enums';
+import { arrayOfEvents } from './db/stubbedEvents'
+
+import './App.css';
 import WeekTable from './components/TimeTable/WeekTable';
 import CalendarButtons from './components/WeekButtons/CalendarButtons';
-import { DateFormat } from './utils/enums';
-import jsonEvents from './db/stubbedEvents.json'
-import './App.css';
 
 function App() {
   const [dateFromCalendar, setDateFromCalendar] = useState(moment().format(DateFormat.LONG_DATE_FORMAT_INPUT));
 
   useEffect(() => {
     myDexieDB.table('events').clear();
-    myDexieDB.table('events').bulkAdd(jsonEvents);
+    myDexieDB.table('events').bulkAdd(arrayOfEvents);
   }, []);
 
   const handleChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,12 +28,12 @@ function App() {
   const handeButtonsClick = (action: 'prev' | 'next') => {
     switch (action) {
       case 'prev': {
-        setDateFromCalendar(moment(dateFromCalendar).add(7, 'days').format(DateFormat.LONG_DATE_FORMAT_INPUT));
+        setDateFromCalendar(moment(dateFromCalendar).subtract(7, 'days').format(DateFormat.LONG_DATE_FORMAT_INPUT));
 
         break;
       }
       case 'next': {
-        setDateFromCalendar(moment(dateFromCalendar).subtract(7, 'days').format(DateFormat.LONG_DATE_FORMAT_INPUT));
+        setDateFromCalendar(moment(dateFromCalendar).add(7, 'days').format(DateFormat.LONG_DATE_FORMAT_INPUT));
 
         break;
       }
